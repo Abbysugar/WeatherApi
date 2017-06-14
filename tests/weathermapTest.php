@@ -41,4 +41,10 @@ class weathermapTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($test, $this->weathermap->setLocation($location));
 	}
 
+	public function testException()
+	{
+		$this->expectException(InvalidArgumentException::class);
+    }
+	
+
 }
