@@ -2,11 +2,15 @@
 
 namespace Bukola\WeatherApi;
 
+use Dotenv\Dotenv;
 use GuzzleHttp\Client; 
 use GuzzleHttp\Exception\RequestException;
 
 class Weathermap
 {
+
+	//class properties
+
 	protected $api_key;
 	protected $location;
 	protected $url = "http://api.openweathermap.org/data/2.5/forecast";
@@ -29,8 +33,15 @@ class Weathermap
 		$this->location = $location; 
 	}
 
+
+
+	 /*
+    * Function for getting the weather report from API url 
+    using the generated API key and location ID of choice.
+     */
 	public function getWeatherReport()
 	{
+
 		try {
 			$url = $this->url."?id=$this->location&APPID=$this->api_key";
 			$res = $this->client->request('GET', $url);
@@ -43,8 +54,16 @@ class Weathermap
 			return $resultObj;
 	
 		} catch (RequestException $e) {
+
 			return $e->getMessage();
-		}
+
+		} catch (RequestException $e) {
+
+            return "Wrong information provided!!";
+            throw new RequestException('Wrong information provided!');
+
+        }
+
 	}
 		
 
