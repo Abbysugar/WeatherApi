@@ -2,7 +2,7 @@
 
 ## Location ID  
 
-## Download list of location ID for different cities from the link below.
+## Check the list of city names in the link below.
 
 [Location ID](http://bulk.openweathermap.org/sample/city.list.json.gz)
 
@@ -13,7 +13,7 @@
 Via Composer
 
 ``` bash
-$ composer install sirolad/open-source-evangelist-agnostic-package
+$ composer install bukola/weather-api
 ```
 
 ``` bash
@@ -44,4 +44,4 @@ Open-source WeatherApi is developed and maintained by `Bukola Bisuga`.
 
 ## License
 
-Open-source Evangelist is released under the MIT Licence. See the bundled [LICENSE](LICENSE.md) file for details.
+Open-source WeatherApi is released under the MIT Licence. See the bundled [LICENSE](LICENSE.md) file for details.
