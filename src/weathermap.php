@@ -13,7 +13,7 @@ class Weathermap
 
 	protected $api_key;
 	protected $location;
-	protected $url = "http://api.openweathermap.org/data/2.5/forecast";
+	protected $url = "http://api.openweathermap.org/data/2.5/weather";
 
 
 	public function __construct()
@@ -43,7 +43,7 @@ class Weathermap
 	{
 
 		try {
-			$url = $this->url."?id=$this->location&APPID=$this->api_key";
+			$url = $this->url."?q=$this->location&APPID=$this->api_key";
 			$res = $this->client->request('GET', $url);
 
 
