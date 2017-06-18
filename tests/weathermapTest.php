@@ -2,78 +2,80 @@
 
 namespace Bukola\WeatherApi\Test;
 
-use Bukola\WeatherApi\Weathermap; 
-use GuzzleHttp\Client;
-use Bukola\WeatherApi\Exceptions\RequestException;
-
-
+use Bukola\WeatherApi\Weathermap;
 
 /*
-* weathermapTest is the test for the Weathermap Class.
+ * weathermapTest is the test for the Weathermap Class.
  */
 class weathermapTest extends \PHPUnit_Framework_TestCase
 {
 
-	//class properties
+    /*
+     *instance of the Weathermap class.
+     *@var Bukola\WeatherApi\Weathermap object.
+     */
+    public $weathermap;
 
-	public $weathermap;
+    /*
+     *the api key.
+     *@var string.
+     */
+    public $apiKey;
 
-	public $api_key;
+    /*
+     *the city name.
+     */
+    public $location;
 
-	public $location;
-
-	public $url;
-
-
-
-	public function setUp()
+    /*
+     *creating an instance of the Weathermap class.
+     */
+    public function setUp()
     {
 
         $this->weathermap = new Weathermap();
 
     }
 
+    /*
+     *test for capi key.
+     */
+    public function testSetApiKey()
+    {
 
-    // tests the API key
+        $apiKey = getenv('API_KEY');
 
-	public function testSetApiKey()
-	{
+        $test = $this->weathermap->setApiKey($apiKey);
 
-		$api_key = "49bcdc20fd0cf41cb08ec5d31cf9fc33";
+        $this->assertEquals($test, $this->weathermap->setApiKey($apiKey));
 
-		$test = $this->weathermap->setApiKey($api_key);
+    }
 
-        $this->assertEquals($test, $this->weathermap->setApiKey($api_key));
+    /*
+     *test for city name.
+     */
+    public function testSetLocation()
+    {
 
-	}
+        $location = "London";
 
-
-	// tests the location ID
-
-	public function testSetLocation()
-	{
-
-		$location = 683842;
-
-		$test = $this->weathermap->setLocation($location);
+        $test = $this->weathermap->setLocation($location);
 
         $this->assertEquals($test, $this->weathermap->setLocation($location));
 
-	}
+    }
 
- /*
-    * Test for checking the weather report using correct API
-    key and location ID.
+    /*
+     * Test for checking the weather report using correct API
+     *key and location ID.
      */
-	public function testGetWeatherReport()
-	{
-	
+    public function testGetWeatherReport()
+    {
+
         $test = $this->weathermap->getWeatherReport();
 
         $this->assertEquals($test, $this->weathermap->getWeatherReport());
 
-
     }
-
 
 }

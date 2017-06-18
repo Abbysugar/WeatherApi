@@ -3,20 +3,38 @@
 namespace Bukola\WeatherApi;
 
 use Dotenv\Dotenv;
-use GuzzleHttp\Client; 
+use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 
 class Weathermap
 {
 
-	//class properties
+    /*
+     *the api key
+     *@var string.
+     */
+    protected $apiKey;
 
-	protected $api_key;
-	protected $location;
-	// protected $url = .getenv('API_URL');
+    /*
+     *the city name
+     *@var string.
+     */
+    protected $location;
+    // protected $url = getenv('API_URL');
 
+    /*
+     *the guzzlehttp client
+     *@var \GuzzleHttp\Client object.
+     */
+    protected $client;
 
-	/*
+    public function __construct()
+    {
+        $this->client = new Client();
+
+    }
+
+    /*
      * loadDotenv connects to the .env file in the root directory
      */
     public static function loadDotenv()
@@ -25,59 +43,45 @@ class Weathermap
         $dotenv->load();
     }
 
-	public function __construct()
-	{
-		$this->client = new Client();
-		
-	}
-
-
-
-
-	public function setApiKey($api_key)
-	{
-		$this->api_key = $api_key;
-	}
-
-	public function setLocation($location)
-	{
-		$this->location = $location; 
-	}
-
-
-
-	 /*
-    * Function for getting the weather report from API url 
-    using the generated API key and location ID of choice.
+    /*
+     * Method for setting the city name.
+     * @param string
      */
-	public function getWeatherReport()
-	{
-		static::loadDotenv();
-		$url = getenv('API_URL');
+    public function setLocation($location)
+    {
+        $this->location = $location;
+    }
 
-		try {
-			$url = getenv('API_URL') . "?q=$this->location&APPID=$this->api_key";
-			$res = $this->client->request('GET', $url);
+    /*
+     * Function for getting the weather report from API url
+     *using the generated API key and location ID of choice.
+     */
+    public function getWeatherReport()
+    {
+        static::loadDotenv();
+        $url = getenv('API_URL');
 
+        try {
+            $url = getenv('API_URL') . "?q=$this->location&APPID=" . getenv('API_KEY');
+            $res = $this->client->request('GET', $url);
 
-			$result =  $res->getBody();
+            $result = $res->getBody();
 
-			$resultObj = json_decode($result);
+            $resultObj = json_decode($result);
 
-			return $resultObj;
-	
-		} catch (RequestException $e) {
+            return $resultObj;
 
-			return $e->getMessage();
+        } catch (RequestException $e) {
 
-		} catch (RequestException $e) {
+            return $e->getMessage();
+
+        } catch (RequestException $e) {
 
             return "Wrong information provided!!";
             throw new RequestException('Wrong information provided!');
 
         }
 
-	}
-		
+    }
 
 }
