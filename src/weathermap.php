@@ -20,7 +20,7 @@ class Weathermap
      *@var string.
      */
     protected $location;
-    // protected $url = getenv('API_URL');
+    
 
     /*
      *the guzzlehttp client
