@@ -13,14 +13,25 @@ class Weathermap
 
 	protected $api_key;
 	protected $location;
-	protected $url = "http://api.openweathermap.org/data/2.5/weather";
+	// protected $url = .getenv('API_URL');
 
+
+	/*
+     * loadDotenv connects to the .env file in the root directory
+     */
+    public static function loadDotenv()
+    {
+        $dotenv = new Dotenv(__DIR__ . '/..');
+        $dotenv->load();
+    }
 
 	public function __construct()
 	{
 		$this->client = new Client();
 		
 	}
+
+
 
 
 	public function setApiKey($api_key)
@@ -41,9 +52,11 @@ class Weathermap
      */
 	public function getWeatherReport()
 	{
+		static::loadDotenv();
+		$url = getenv('API_URL');
 
 		try {
-			$url = $this->url."?q=$this->location&APPID=$this->api_key";
+			$url = getenv('API_URL') . "?q=$this->location&APPID=$this->api_key";
 			$res = $this->client->request('GET', $url);
 
 
